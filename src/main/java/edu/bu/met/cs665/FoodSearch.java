@@ -1,36 +1,41 @@
 package edu.bu.met.cs665;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class FoodSearch {
 
-    private String location;
-    private String cuisineType;
-    private String priceRange;
-    private String menuItem;
-    private String vegetarian;
+    HashMap<String,String> searchCriteria;
 
-    public FoodSearch(){}
+    public FoodSearch(){
+      searchCriteria = new HashMap<String,String>();
+    }
 
     public void setLocation(String location) {
-        this.location = location;
+        searchCriteria.put("location",location);
     }
 
     public void setCuisineType(String cuisineType) {
-        this.cuisineType = cuisineType;
+        searchCriteria.put("cuisine_type",cuisineType);
     }
 
     public void setPriceRange(String priceRange) {
-        this.priceRange = priceRange;
+        searchCriteria.put("price_range",priceRange);
     }
 
     public String getLocation() {
-        return location;
+        return searchCriteria.get("location");
     }
 
     public String getCuisineType() {
-        return cuisineType;
+        return searchCriteria.get("cuisine_type");
     }
 
     public String getPriceRange() {
-        return priceRange;
+        return searchCriteria.get("price_range");
+    }
+
+    public HashMap<String, String> getSearchCriteria(){
+        return searchCriteria;
     }
 }
