@@ -1,8 +1,10 @@
-package edu.bu.met.cs665;
+package edu.bu.met.cs665.searchBuilder;
+
+import edu.bu.met.cs665.searchBuilder.FoodSearch;
 
 public class SearchBuilder {
 
-    FoodSearch foodSearch;
+    private FoodSearch foodSearch;
 
     public SearchBuilder(){
         this.foodSearch = new FoodSearch();

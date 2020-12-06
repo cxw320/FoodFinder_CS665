@@ -1,7 +1,10 @@
 package edu.bu.met.cs665.customerQuestions;
 
-import edu.bu.met.cs665.FoodSearch;
-import edu.bu.met.cs665.SearchBuilder;
+import edu.bu.met.cs665.database.CategoryQuery;
+import edu.bu.met.cs665.database.Query;
+import edu.bu.met.cs665.database.QueryResults;
+import edu.bu.met.cs665.searchBuilder.FoodSearch;
+import edu.bu.met.cs665.searchBuilder.SearchBuilder;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,13 +13,20 @@ public class AskPriceRange extends QuestionCommand{
 
     SearchBuilder searchBuilder;
     //HASHMAP OF CUISINETYPES / MAYBE THIS IS A NEW CLASS
-    ArrayList<String> priceRanges = new ArrayList<String>();
+    ArrayList<String> priceRanges;
 
     public AskPriceRange(SearchBuilder searchBuilder){
         this.searchBuilder = searchBuilder;
-        priceRanges.add("Less than $20");
-        priceRanges.add("$20 - $30");
-        priceRanges.add("$30+");
+        Query categoryQuery = new CategoryQuery("price_range");
+        QueryResults queryResults = categoryQuery.executeQuery();
+        this.priceRanges = queryResults.getCategoryResults();
+
+        //this.priceRanges = new ArrayList<String>();
+    /*    Syntax categorySyntax = new CategoryQuerySyntax();
+        categorySyntax.setCategory("price_range");
+        Query categoryQuery = new CategoryQuery(categorySyntax);
+        categoryQuery.executeSQL();
+        this.priceRanges= categoryQuery.getCategoryResults();*/
 
     }
 
@@ -41,10 +51,14 @@ public class AskPriceRange extends QuestionCommand{
 
 
     public void questionScript(){
-        System.out.println("Please select an average price range per person:"+
-                "\n 1 - Less than $20"+
-                "\n 2 - $20 - $30"+
-                "\n 3 - $30+");
+        System.out.println("Please select an average price range per person:");
+
+        int orderNum = 1;
+
+        for(String priceRange: priceRanges){
+            System.out.println(orderNum + " - "+ priceRange);
+            orderNum++;
+        }
         Scanner scanner2 = new Scanner(System.in);  // Create a Scanner object
         int userInput2 = scanner2.nextInt();  // Read user input
         FoodSearch foodSearch = this.searchBuilder.setPriceRange(priceRanges.get(userInput2-1));

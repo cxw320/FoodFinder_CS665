@@ -1,4 +1,4 @@
-package edu.bu.met.cs665.database;
+package edu.bu.met.cs665.database.sql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,6 @@ public class SQLConnection {
             Class.forName(driver);
 
             Connection conn = DriverManager.getConnection(url,username,password);
-            System.out.println("Connection successful");
             return conn;
 
         }catch(Exception e){

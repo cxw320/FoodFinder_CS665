@@ -1,7 +1,10 @@
 package edu.bu.met.cs665.customerQuestions;
 
-import edu.bu.met.cs665.FoodSearch;
-import edu.bu.met.cs665.SearchBuilder;
+import edu.bu.met.cs665.database.CategoryQuery;
+import edu.bu.met.cs665.database.Query;
+import edu.bu.met.cs665.database.QueryResults;
+import edu.bu.met.cs665.searchBuilder.FoodSearch;
+import edu.bu.met.cs665.searchBuilder.SearchBuilder;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -10,15 +13,26 @@ public class AskCuisineType extends QuestionCommand{
 
     SearchBuilder searchBuilder;
     //HASHMAP OF CUISINETYPES / MAYBE THIS IS A NEW CLASS
-    ArrayList<String> cuisineOptions = new ArrayList<String>();
+    ArrayList<String> cuisineOptions;
 
 
     public AskCuisineType(SearchBuilder searchBuilder){
         this.searchBuilder = searchBuilder;
-        cuisineOptions.add("American");
-        cuisineOptions.add("Italian");
-        cuisineOptions.add("Mexican");
-        cuisineOptions.add("Chinese");
+        //this.cuisineOptions = new ArrayList<String>();
+
+        Query categoryQuery = new CategoryQuery("cuisine_type");
+        QueryResults queryResults = categoryQuery.executeQuery();
+        this.cuisineOptions = queryResults.getCategoryResults();
+
+     /*   Syntax categorySyntax = new CategoryQuerySyntax();
+        categorySyntax.setCategory("cuisine_type");
+        Query categoryQuery = new CategoryQuery(categorySyntax);
+        categoryQuery.executeSQL();
+        this.cuisineOptions = categoryQuery.getCategoryResults();*/
+
+
+
+
     }
 
     public SearchBuilder execute(){
@@ -42,11 +56,15 @@ public class AskCuisineType extends QuestionCommand{
 
 
     public void questionScript(){
-        System.out.println("Please enter a number for your requested Cuisine type:"+
-                "\n 1 - American Fast Food (Burgers, Sandwiches, etc.)"+
-                "\n 2 - Italian & Pizza"+
-                "\n 3 - Mexican"+
-                "\n 4 - Chinese");
+        System.out.println("Please enter a number for your requested Cuisine type:");
+
+        int orderNum = 1;
+
+        for(String cuisineOption: cuisineOptions){
+            System.out.println(orderNum + " - "+cuisineOption);
+            orderNum++;
+        }
+
         Scanner scanner2 = new Scanner(System.in);  // Create a Scanner object
         int userInput2 = scanner2.nextInt();  // Read user input
         FoodSearch foodSearch = this.searchBuilder.setCuisineType(cuisineOptions.get(userInput2-1));

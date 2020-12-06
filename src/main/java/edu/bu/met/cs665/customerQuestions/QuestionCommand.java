@@ -1,6 +1,6 @@
 package edu.bu.met.cs665.customerQuestions;
 
-import edu.bu.met.cs665.SearchBuilder;
+import edu.bu.met.cs665.searchBuilder.SearchBuilder;
 
 public abstract class QuestionCommand {
 

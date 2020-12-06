@@ -1,4 +1,4 @@
-package edu.bu.met.cs665;
+package edu.bu.met.cs665.searchBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

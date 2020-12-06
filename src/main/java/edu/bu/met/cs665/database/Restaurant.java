@@ -8,9 +8,7 @@ public class Restaurant {
     private String cuisine_type;
     private String price_range;
 
-    public Restaurant(){
-
-    }
+    public Restaurant(){}
 
     public void setId(int id) {
         this.id = id;
@@ -36,9 +34,7 @@ public class Restaurant {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public String getLocation() {
         return location;
@@ -51,10 +47,5 @@ public class Restaurant {
     public String getPrice_range() {
         return price_range;
     }
-
-
-
-
-
 
 }
